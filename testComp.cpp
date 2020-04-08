@@ -23,7 +23,7 @@ TEST_CASE("stats::basic rectArea","[weight=1][part=stats]"){
     long result = s.rectArea(ul,lr);
 
     REQUIRE(result == 6);
-    
+
 }
 
 TEST_CASE("stats::basic getAvg","[weight=1][part=stats]"){
@@ -93,12 +93,12 @@ TEST_CASE("twoDtree::basic copy","[weight=1][part=twoDtree]"){
 TEST_CASE("twoDtree::basic prune","[weight=1][part=twoDtree]"){
     PNG img;
     img.readFromFile("images/ada.png");
-    
-    twoDtree t1(img); 
+
+    twoDtree t1(img);
     t1.prune(3000);
     PNG result = t1.render();
 
-    PNG expected; 
+    PNG expected;
     expected.readFromFile("images/given-adaPrune.png");
 
     REQUIRE(expected==result);
@@ -107,8 +107,8 @@ TEST_CASE("twoDtree::basic prune","[weight=1][part=twoDtree]"){
 TEST_CASE("twoDtree::basic pruneSize","[weight=1][part=twoDtree]"){
     PNG img;
     img.readFromFile("images/ada.png");
-    
-    twoDtree t1(img); 
+
+    twoDtree t1(img);
     int result = t1.pruneSize(3000);
 
     int expected = 13904;
@@ -119,8 +119,8 @@ TEST_CASE("twoDtree::basic pruneSize","[weight=1][part=twoDtree]"){
 TEST_CASE("twoDtree::basic idealPrune","[weight=1][part=twoDtree]"){
     PNG img;
     img.readFromFile("images/ada.png");
-    
-    twoDtree t1(img); 
+
+    twoDtree t1(img);
     int result = t1.idealPrune(13904);
 
     int expected = 2998;

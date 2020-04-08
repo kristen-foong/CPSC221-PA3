@@ -42,7 +42,7 @@ twoDtree::twoDtree(PNG & imIn){
 	width = imIn.width();
 	pair<int, int> ul = make_pair(0,0);
 	pair<int, int> lr = make_pair(width-1, height-1);
-	stats s(imIn);
+	stats stat = stats(imIn);
 	bool v = true;
 	root = buildTree(stat, ul, lr, v);
 
