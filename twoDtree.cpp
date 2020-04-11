@@ -51,12 +51,76 @@ twoDtree::twoDtree(PNG & imIn){
 twoDtree::Node * twoDtree::buildTree(stats & s, pair<int,int> ul, pair<int,int> lr, bool vert) {
 
 	// YOUR CODE HERE!!
+	RGBAPixel pix = s.getAvg(ul, lr);
+	Node* sub = new Node(ul, lr, pix);
+	long score = LONG_MAX;
+	pair<int,int> newlr, newul;
+
+	if(ul == lr) {
+		return sub;
+	}
+
+	for(int x = ul.first; x < lr.first; x++) {
+		pair<int,int> firstPair = make_pair(x, lr.second);
+		pair<int, int> secPair = make_pair(x + 1, ul.second);
+		long firstScore = s.getScore(ul, firstPair);
+		long secScore = s.getScore(secPair, lr);
+		long total = firstScore + secScore;
+		if(total < score) {
+			score = total;
+			newlr = firstPair;
+			newul = secPair;
+		}
+	}
+
+	for(int y = ul.second; y < lr.second; y++) {
+		pair<int,int> firstPair = make_pair(lr.first, y);
+		pair<int,int> secPair = make_pair(ul.first, y+1);
+		long firstScore = s.getScore(ul, firstPair);
+		long secScore = s.getScore(secPair, lr);
+		long total = firstScore + secScore;
+		if(total < score) {
+			score = total;
+			newlr = firstPair;
+			newul = secPair;
+		}
+	}
+
+	sub->left = buildTree(s, ul, newlr, vert);
+	sub->right = buildTree(s, newul, lr, vert);
+	return sub;
+
 
 }
 
 PNG twoDtree::render(){
 
-// YOUR CODE HERE!!
+	// YOUR CODE HERE!!
+	PNG img(width, height);
+	render(root, img);
+	return img;
+
+}
+
+void twoDtree::render(const Node* sub, PNG &img) {
+
+	if(sub == NULL) {
+		return;
+	} else if (sub->left == NULL && sub->right == NULL) {
+		int ulf = sub->upLeft.first;
+		int lrf = sub->lowRight.first;
+		int uls = sub->upLeft.second;
+		int lrs = sub->lowRight.second;
+		for(int x = ulf; x <= lrf; x++) {
+			for(int y = uls; y <= lrs; y++) {
+				RGBAPixel *pix = img.getPixel(x,y);
+				*pix = sub->avg;
+			}
+		}
+		return;
+	}
+	render(sub->left, img);
+	render(sub->right, img);
 
 }
 
@@ -87,5 +151,20 @@ void twoDtree::clear() {
 void twoDtree::copy(const twoDtree & orig){
 
 // YOUR CODE HERE!!
+	root = copy(orig.root);
+	this->height = orig.height;
+	this->width = orig.width;
+
+}
+
+twoDtree::Node* twoDtree::copy(const Node* sub) {
+
+	if(sub == NULL) {
+		return NULL;
+	}
+	Node* newNode = new Node(sub->upLeft, sub->lowRight, sub->avg);
+	newNode->left = copy(sub->left);
+	newNode->right = copy(sub->right);
+	return newNode;
 
 }
