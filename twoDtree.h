@@ -181,6 +181,11 @@ private:
    /* =================== private PA3 functions ============== */
 
    /**
+    * Helper function for pruneSize
+    */
+   int pruneSize(Node* sub, int tol, int &size);
+   
+   /**
     * Destroys all dynamically allocated memory associated with the
     * current twoDtree class. Complete for PA3.
     * You may want a recursive helper function for this one.
@@ -190,7 +195,7 @@ private:
    /**
     * Helper function for clear()
     */
-   void clear(Node* subRoot);
+   void clear(Node* sub);
 
    /**
    * Copies the parameter other twoDtree into the current twoDtree.

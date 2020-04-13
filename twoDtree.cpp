@@ -25,7 +25,6 @@ twoDtree::twoDtree(const twoDtree & other) {
 	copy(other);
 }
 
-
 // twoDtree assignment operator, given.
 twoDtree & twoDtree::operator=(const twoDtree & rhs){
 	if (this != &rhs) {
@@ -130,7 +129,22 @@ int twoDtree::idealPrune(int leaves){
 int twoDtree::pruneSize(int tol){
 
 // YOUR CODE HERE!!
+int size = 0;
+pruneSize(root, tol, size);
+}
 
+int twoDtree::pruneSize(Node* sub, int tol, int &size) {
+	if (sub == NULL) {
+		return 0;
+	}
+	if (sub->left == NULL && sub->right == NULL) {
+		size++;
+	}
+	else {
+		pruneSize(sub->left, tol, size);
+		pruneSize(sub->right, tol, size);
+	}
+	return size;
 }
 
 void twoDtree::prune(int tol){
@@ -143,13 +157,13 @@ void twoDtree::clear() {
 	clear(root);
 }
 
-void twoDtree::clear(Node* subRoot) {
-	if (subRoot == NULL) {
+void twoDtree::clear(Node* sub) {
+	if (sub == NULL) {
 		return;
 	}
-	clear(subRoot->left);
-	clear(subRoot->right);
-	delete subRoot;
+	clear(sub->left);
+	clear(sub->right);
+	delete sub;
 }
 
 void twoDtree::copy(const twoDtree & orig){
