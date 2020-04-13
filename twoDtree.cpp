@@ -125,7 +125,6 @@ void twoDtree::render(const Node* sub, PNG &img) {
 int twoDtree::idealPrune(int leaves){
 
 // YOUR CODE HERE!!
-
 }
 
 int twoDtree::pruneSize(int tol){
