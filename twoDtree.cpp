@@ -121,7 +121,6 @@ void twoDtree::render(const Node* sub, PNG &img) {
 	}
 	render(sub->left, img);
 	render(sub->right, img);
-
 }
 
 int twoDtree::idealPrune(int leaves){
@@ -145,7 +144,17 @@ void twoDtree::prune(int tol){
 void twoDtree::clear() {
 
 // YOUR CODE HERE!!
+	clear(root);
+}
 
+void twoDtree::clear(Node* subRoot) {
+	if (subRoot == NULL) {
+		return;
+	}
+
+	clear(subRoot->left);
+	clear(subRoot->right);
+	delete subRoot;
 }
 
 void twoDtree::copy(const twoDtree & orig){

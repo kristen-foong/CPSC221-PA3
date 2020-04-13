@@ -183,9 +183,14 @@ private:
    /**
     * Destroys all dynamically allocated memory associated with the
     * current twoDtree class. Complete for PA3.
-   * You may want a recursive helper function for this one.
+    * You may want a recursive helper function for this one.
     */
    void clear();
+
+   /**
+    * Helper function for clear()
+    */
+   void clear(Node* subRoot);
 
    /**
    * Copies the parameter other twoDtree into the current twoDtree.
