@@ -89,8 +89,6 @@ twoDtree::Node * twoDtree::buildTree(stats & s, pair<int,int> ul, pair<int,int> 
 	sub->left = buildTree(s, ul, newlr, vert);
 	sub->right = buildTree(s, newul, lr, vert);
 	return sub;
-
-
 }
 
 PNG twoDtree::render(){
@@ -106,7 +104,8 @@ void twoDtree::render(const Node* sub, PNG &img) {
 
 	if(sub == NULL) {
 		return;
-	} else if (sub->left == NULL && sub->right == NULL) {
+	} 
+	else if (sub->left == NULL && sub->right == NULL) {
 		int ulf = sub->upLeft.first;
 		int lrf = sub->lowRight.first;
 		int uls = sub->upLeft.second;
@@ -136,13 +135,11 @@ int twoDtree::pruneSize(int tol){
 }
 
 void twoDtree::prune(int tol){
-
 // YOUR CODE HERE!!
 
 }
 
 void twoDtree::clear() {
-
 // YOUR CODE HERE!!
 	clear(root);
 }
@@ -151,19 +148,16 @@ void twoDtree::clear(Node* subRoot) {
 	if (subRoot == NULL) {
 		return;
 	}
-
 	clear(subRoot->left);
 	clear(subRoot->right);
 	delete subRoot;
 }
 
 void twoDtree::copy(const twoDtree & orig){
-
 // YOUR CODE HERE!!
 	root = copy(orig.root);
 	this->height = orig.height;
 	this->width = orig.width;
-
 }
 
 twoDtree::Node* twoDtree::copy(const Node* sub) {
